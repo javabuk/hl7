@@ -66,7 +66,7 @@ public class GeneradorMensaje {
 					//ParserConfiguration config = new ParserConfiguration();
 					ParserConfiguration config = context.getParserConfiguration();
 					Escaping escape = config.getEscaping();
-					Parser parser = context.getPipeParser();
+					Parser parser = context.getPipeParser(); 
 					String encodedMessage = parser.encode(adt);
 					System.out.println("Printing ER7 Encoded Message:");
 					System.out.println(encodedMessage.toCharArray());
