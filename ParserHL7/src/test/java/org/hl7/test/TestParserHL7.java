@@ -2,6 +2,11 @@ package org.hl7.test;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.hl7.configuracion.ConfiguracionParser;
+import org.hl7.configuracion.DatosMensajeSinParsear;
 import org.hl7.entidad.InfoMensajeHL7;
 import org.hl7.parser.ParserHL7;
 import org.junit.Test;
@@ -14,6 +19,30 @@ public class TestParserHL7 {
 		String mensajePrueba = "MSH|^~\\&|INFO33||||20160627122000||ADT^A01^ADT_A01|101|P|2.3\r" +
 				"PID|||||Doe^John";
 		ParserHL7 parser = new ParserHL7();
+		InfoMensajeHL7 mensajeInfo = parser.parsearMensaje(mensajePrueba);
+		
+		assertNotNull(mensajeInfo);
+	}
+	
+	@Test
+	public void testParserVersionDatosAdicionales() {
+		
+		String mensajePrueba = "MSH|^~\\&|INFO33||MEDIKOSTA||20160627122000||ADT^A01^ADT_A01|101|P|2.3\r" +
+				"PID|||||Doe^John";
+		List<DatosMensajeSinParsear> listaDatosAdicionales = new ArrayList<DatosMensajeSinParsear>();
+		DatosMensajeSinParsear datoAdicional = new DatosMensajeSinParsear();
+		datoAdicional.setConcepto("Emisor");
+		datoAdicional.setRutaParser("/MSH-3-1");
+		listaDatosAdicionales.add(datoAdicional);
+		
+		DatosMensajeSinParsear datoAdicionalReceptor = new DatosMensajeSinParsear();
+		datoAdicionalReceptor.setConcepto("Receptor");
+		datoAdicionalReceptor.setRutaParser("/MSH-5-1");
+		listaDatosAdicionales.add(datoAdicionalReceptor);
+		
+		ConfiguracionParser configuracion = new ConfiguracionParser(listaDatosAdicionales);
+		
+		ParserHL7 parser = new ParserHL7(configuracion);
 		InfoMensajeHL7 mensajeInfo = parser.parsearMensaje(mensajePrueba);
 		
 		assertNotNull(mensajeInfo);

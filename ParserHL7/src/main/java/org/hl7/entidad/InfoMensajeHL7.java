@@ -1,5 +1,7 @@
 package org.hl7.entidad;
 
+import java.util.List;
+
 import ca.uhn.hl7v2.model.Message;
 
 public class InfoMensajeHL7 {
@@ -9,6 +11,16 @@ public class InfoMensajeHL7 {
 	private String version;
 	
 	private Message mensaje;
+	
+	private List<DatosAdicionales> datosAdicionales;
+
+	public List<DatosAdicionales> getDatosAdicionales() {
+		return datosAdicionales;
+	}
+
+	public void setDatosAdicionales(List<DatosAdicionales> datosAdicionales) {
+		this.datosAdicionales = datosAdicionales;
+	}
 
 	public String getTipoMensajeHL7() {
 		return tipoMensajeHL7;
