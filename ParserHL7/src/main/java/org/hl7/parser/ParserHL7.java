@@ -9,10 +9,13 @@ import org.hl7.configuracion.DatosMensajeSinParsear;
 import org.hl7.entidad.DatosAdicionales;
 import org.hl7.entidad.InfoMensajeHL7;
 
+import ca.uhn.hl7v2.DefaultHapiContext;
 import ca.uhn.hl7v2.HL7Exception;
+import ca.uhn.hl7v2.HapiContext;
 import ca.uhn.hl7v2.model.Message;
 import ca.uhn.hl7v2.parser.PipeParser;
 import ca.uhn.hl7v2.util.Terser;
+import ca.uhn.hl7v2.validation.builder.support.DefaultValidationBuilder;
 
 public class ParserHL7 {
 	
@@ -21,23 +24,36 @@ public class ParserHL7 {
 	private static final String RUTA_TIPOMENSAJE = "/MSH-9-3";
 	
 	private ConfiguracionParser configuracion;
+	private DefaultValidationBuilder validacion;
 	
 	
 	public ParserHL7() {
 		this(null);		
 	}
 	
-	public ParserHL7(ConfiguracionParser configuracion) {
-		super();
-		this.configuracion = configuracion;
+	public ParserHL7(ConfiguracionParser configuracion) {		
+		this(configuracion, null);	
 	}
 
-
+	public ParserHL7(ConfiguracionParser configuracion, DefaultValidationBuilder validacion ) {
+		super();
+		this.configuracion = configuracion;
+		this.validacion = validacion;
+	}
 
 	public InfoMensajeHL7 parsearMensaje(String mensaje){
 		
 		InfoMensajeHL7 respuesta = new InfoMensajeHL7();
-		PipeParser parseadorPipe = new PipeParser();
+		PipeParser parseadorPipe = null;
+		if(validacion!=null){
+			HapiContext context = new DefaultHapiContext();
+			context.setValidationRuleBuilder(validacion);
+			parseadorPipe = context.getPipeParser();
+		}else{
+			parseadorPipe = new PipeParser();
+		}
+		
+		
 		Message mensajeHL7;
 		try {
 			mensajeHL7 = parseadorPipe.parse(mensaje);
