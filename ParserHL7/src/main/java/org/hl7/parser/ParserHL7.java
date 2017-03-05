@@ -13,6 +13,7 @@ import ca.uhn.hl7v2.DefaultHapiContext;
 import ca.uhn.hl7v2.HL7Exception;
 import ca.uhn.hl7v2.HapiContext;
 import ca.uhn.hl7v2.model.Message;
+import ca.uhn.hl7v2.model.Segment;
 import ca.uhn.hl7v2.parser.PipeParser;
 import ca.uhn.hl7v2.util.Terser;
 import ca.uhn.hl7v2.validation.builder.support.DefaultValidationBuilder;
@@ -60,6 +61,9 @@ public class ParserHL7 {
 			respuesta.setTipoMensaje(mensajeHL7.getClass().getName());
 			respuesta.setMensajeParseado(mensajeHL7.getClass());
 			Terser terser = new Terser(mensajeHL7);
+			
+			Segment segmentoMSH= terser.getSegment("MSH");
+			
 			String version = terser.get(RUTA_VERSION);
 			String tipoMensaje = terser.get(RUTA_TIPOMENSAJE);
 			if(configuracion!=null && configuracion.getDatosRecuperar() != null){
