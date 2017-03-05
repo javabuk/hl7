@@ -41,14 +41,16 @@ public class ParserHL7 {
 		Message mensajeHL7;
 		try {
 			mensajeHL7 = parseadorPipe.parse(mensaje);
+			respuesta.setTipoMensaje(mensajeHL7.getClass().getName());
+			respuesta.setMensajeParseado(mensajeHL7.getClass());
 			Terser terser = new Terser(mensajeHL7);
 			String version = terser.get(RUTA_VERSION);
 			String tipoMensaje = terser.get(RUTA_TIPOMENSAJE);
 			if(configuracion!=null && configuracion.getDatosRecuperar() != null){
 				List<DatosMensajeSinParsear> datosRecuperar = configuracion.getDatosRecuperar();
 				List<DatosAdicionales> datosAdicionales = new ArrayList<DatosAdicionales>();
-				for (Iterator iterator = datosRecuperar.iterator(); iterator.hasNext();) {
-					DatosMensajeSinParsear datosMensajeSinParsear = (DatosMensajeSinParsear) iterator.next();
+				for (Iterator<DatosMensajeSinParsear> iterator = datosRecuperar.iterator(); iterator.hasNext();) {
+					DatosMensajeSinParsear datosMensajeSinParsear = iterator.next();
 					DatosAdicionales datoAdicional = new DatosAdicionales();
 					datoAdicional.setValor(terser.get(datosMensajeSinParsear.getRutaParser()));
 					datoAdicional.setConcepto(datosMensajeSinParsear.getConcepto());
@@ -59,6 +61,7 @@ public class ParserHL7 {
 			respuesta.setMensaje(mensajeHL7);
 			respuesta.setTipoMensajeHL7(tipoMensaje);
 			respuesta.setVersion(version);
+			
 			
 		} catch (HL7Exception e) {
 			respuesta.setTipoMensajeHL7("error");

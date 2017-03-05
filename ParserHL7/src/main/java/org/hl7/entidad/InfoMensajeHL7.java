@@ -13,6 +13,27 @@ public class InfoMensajeHL7 {
 	private Message mensaje;
 	
 	private List<DatosAdicionales> datosAdicionales;
+	
+	private Object mensajeParseado;
+	
+	private String tipoMensaje;
+		
+
+	public Object getMensajeParseado() {
+		return mensajeParseado;
+	}
+
+	public void setMensajeParseado(Object mensajeParseado) {
+		this.mensajeParseado = mensajeParseado;
+	}
+
+	public String getTipoMensaje() {
+		return tipoMensaje;
+	}
+
+	public void setTipoMensaje(String tipoMensaje) {
+		this.tipoMensaje = tipoMensaje;
+	}
 
 	public List<DatosAdicionales> getDatosAdicionales() {
 		return datosAdicionales;

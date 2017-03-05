@@ -11,6 +11,8 @@ import org.hl7.entidad.InfoMensajeHL7;
 import org.hl7.parser.ParserHL7;
 import org.junit.Test;
 
+import ca.uhn.hl7v2.model.v25.message.ADT_A01;
+
 public class TestParserHL7 {
 
 	@Test
@@ -27,7 +29,7 @@ public class TestParserHL7 {
 	@Test
 	public void testParserVersionDatosAdicionales() {
 		
-		String mensajePrueba = "MSH|^~\\&|INFO33||MEDIKOSTA||20160627122000||ADT^A01^ADT_A01|101|P|2.3\r" +
+		String mensajePrueba = "MSH|^~\\&|INFO33||MEDIKOSTA||20160627122000||ADT^A01^ADT_A01|101|P|2.5\r" +
 				"PID|||||Doe^John";
 		List<DatosMensajeSinParsear> listaDatosAdicionales = new ArrayList<DatosMensajeSinParsear>();
 		DatosMensajeSinParsear datoAdicional = new DatosMensajeSinParsear();
@@ -44,6 +46,25 @@ public class TestParserHL7 {
 		
 		ParserHL7 parser = new ParserHL7(configuracion);
 		InfoMensajeHL7 mensajeInfo = parser.parsearMensaje(mensajePrueba);
+		
+		ADT_A01 mensajeADT = (ADT_A01)mensajeInfo.getMensaje();
+		
+		/*try {
+			Class<?> cls = Class.forName(mensajeInfo.getTipoMensaje());
+			Object instance = cls.newInstance();
+			//T value = cls.cast(mensajeInfo.getMensajeParseado());
+			System.out.println("");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+		
 		
 		assertNotNull(mensajeInfo);
 	}
