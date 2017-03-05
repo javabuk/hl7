@@ -30,24 +30,28 @@ public class Validaciones2_5 extends DefaultValidationBuilder {
 		//Realizamos varias validaciones sobre un mismo campo 
 		List<Predicate> listaValidacionesReceptor = new ArrayList<Predicate>();
 		listaValidacionesReceptor.add(isEqualIgnoreCase("MEDIKOSTA"));
-//		listaValidacionesReceptor.add(number());
+		listaValidacionesReceptor.add(not(number()));
 		forVersion(Version.V25).message("ADT", "*").terser("MSH-5-1", allOf(listaValidacionesReceptor));
 
 		//forVersion(Version.V25).message("ADT", "*").terser("MSH-5-1", number());
 		
-		///MSH-3-1
-		/*Predicate predicado = new Predicate() {
+		// Validación personalizada
+		Predicate predicado = new Predicate() {
 			
 			public String getDescription() {
-				// TODO Auto-generated method stub
-				return null;
+				return "Validación HL7 personalizada";
 			}
 			
 			public boolean evaluate(Object data) throws ValidationException {
-				// TODO Auto-generated method stub
-				return false;
+				if(data!=null){
+					System.out.println("Tiene valor");
+				}else{
+					System.out.println("No tiene valor");
+				}
+				return true;
 			}
-		};*/
+		};
+		forVersion(Version.V25).message("ADT", "*").terser("MSH-5-1", predicado);
 	}
 
 }
