@@ -45,16 +45,16 @@ public class Validaciones2_5 extends DefaultValidationBuilder {
 		Predicate predicado = new Predicate() {
 
 			public String getDescription() {
-				return "Validación HL7 personalizada";
+				return "Validación HL7 personalizada BRANCH";
 			}
 
 			public boolean evaluate(Object data) throws ValidationException {
 				if (data != null) {
-					System.out.println("Tiene valor");
+					System.out.println("Tiene valor BRANCH");
 				} else {
-					System.out.println("No tiene valor");
+					System.out.println("No tiene valor BRANCH");
 				}
-				return true;
+				return false;
 			}
 		};
 		forVersion(Version.V25).message("ADT", "*").terser("MSH-5-1", predicado);
