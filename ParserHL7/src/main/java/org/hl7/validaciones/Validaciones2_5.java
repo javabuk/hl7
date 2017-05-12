@@ -27,16 +27,10 @@ public class Validaciones2_5 extends DefaultValidationBuilder {
 		// forVersion(Version.V25).message("ADT", "*").terser("MSH-3-1",
 		// isEqualIgnoreCase("MEDIKOSTA"));
 		// Validamos que el campo emisor este comprendido en una lista
-		/*
-		 * List<String> listaEmisoresValidos = new ArrayList<String>();
-		 * listaEmisoresValidos.add("BRANCH");
-		 * listaEmisoresValidos.add("INFO33");
-		 */
+
 		List<String> listaEmisoresValidos = new ArrayList<String>();
 		listaEmisoresValidos.add("JORGE");
 		listaEmisoresValidos.add("BARAKALDO");
-
-		listaEmisoresValidos.add("MASTER");
 		forVersion(Version.V25).message("ADT", "*").terser("MSH-3-1", in(listaEmisoresValidos));
 
 		// Realizamos varias validaciones sobre un mismo campo
