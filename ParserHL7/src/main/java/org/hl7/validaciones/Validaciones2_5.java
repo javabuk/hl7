@@ -30,6 +30,7 @@ public class Validaciones2_5 extends DefaultValidationBuilder {
 		List<String> listaEmisoresValidos = new ArrayList<String>();
 		listaEmisoresValidos.add("BRANCH");
 		listaEmisoresValidos.add("INFO33");
+		listaEmisoresValidos.add("MASTER");
 		forVersion(Version.V25).message("ADT", "*").terser("MSH-3-1", in(listaEmisoresValidos));
 
 		// Realizamos varias validaciones sobre un mismo campo
