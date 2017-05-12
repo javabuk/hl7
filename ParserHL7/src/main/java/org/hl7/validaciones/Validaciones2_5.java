@@ -58,6 +58,7 @@ public class Validaciones2_5 extends DefaultValidationBuilder {
 			}
 		};
 		forVersion(Version.V25).message("ADT", "*").terser("MSH-5-1", predicado);
+		// Comentario añadido después del tag Tag_pru_0.0.1
 	}
 
 }
